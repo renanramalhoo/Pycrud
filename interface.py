@@ -52,27 +52,31 @@ class Interface:
         print("Insira os dados do filme: ")
         print("(campos com * são obrigatórios!)")
 
-        titulo = self.solicitavalor('Digite o título: ', ['texto'], False)
-        genero = self.solicitavalor('Digite o gênero: ', ['texto'], False)
-        duracao = self.solicitavalor('Digite a duração: ', ['texto'], True)
-        diretor = self.solicitavalor('Digite o diretor: ', ['texto'], True)
-        estudio = self.solicitavalor('Digite o estúdio: ', ['texto'], True)
-        classificacao = self.solicitavalor('Digite a classificação: ', ['texto'], True)
-        ano = self.solicitavalor('Digite o ano: ', ['texto'], True)
+        titulo = self.solicitavalor('Digite o título: ', 'texto', False)
+        genero = self.solicitavalor('Digite o gênero: ', 'texto', False)
+        duracao = self.solicitavalor('Digite a duração: ', 'texto', True)
+        diretor = self.solicitavalor('Digite o diretor: ', 'texto', True)
+        estudio = self.solicitavalor('Digite o estúdio: ', 'texto', True)
+        classificacao = self.solicitavalor('Digite a classificação: ', 'texto', True)
+        ano = self.solicitavalor('Digite o ano: ', 'texto', True)
 
     # Solicitar um valor do usuário e valida ele
     # return valordigitado
-    def solicitavalor(self, valordigitado, tipo = ['texto', 'numero'], permiteNulo = False):
+    def solicitavalor(self, legenda, tipo = ['texto', 'numero'], permiteNulo = False):
+        valor = input(legenda)
 
-        # Verifica se digitou algo
-        if valordigitado == "":
-            self.solicitavalor()
-
-        # Tenta converter em numero
-        try:
-            solicitavalor = int(valordigitado)
-        except ValueError:
-            print("Opção Invalida!")
-            return self.selecionaopcao()
+        # Verifica se esta vazio
+        if valor == "" and not permiteNulo:
+            print("Valor inválido!")
+            return self.solicitavalor(legenda, tipo, permiteNulo)
+        elif valor == "" and permiteNulo:
+            return valor
         
-        return valordigitado
+        if tipo == 'numero':
+            try:
+                valor = float(valor)
+            except ValueError:
+                print("Valor inválido!")
+                return self.solicitavalor(legenda, tipo, permiteNulo)
+            
+        return valor
