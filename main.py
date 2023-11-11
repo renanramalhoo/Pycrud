@@ -4,7 +4,7 @@ from bd import BD
 
 #Classe principal do programa
 interface = Interface()
-banco = BD('catalogofilmes.db')
+
 
 #Variaveis
 opcao = ""
